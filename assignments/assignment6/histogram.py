@@ -1,12 +1,13 @@
 #1/usr/bin/env python
-import improc.py
+import numpy as np
+import improc
 import matplotlib.pyplot as plt
 #generating a histogram
 #A array of values
 #N = number of bins
 def hist(A,N):
-  n = len(n)
-  mergesort(A)
+  n = len(A)
+  improc.mergesort(A,n)
   minA = A[0]
   maxA = A[N]
   diff = maxA - minA
@@ -14,20 +15,22 @@ def hist(A,N):
   counter = 0
   I = 0
   num_per_bin = np.zeros(N)
-  tmp = min[A]
+  max_val = minA + size_bin
   bins = np.zeros(N)
-  for i in range(N):
-    tmp = tmp + size_bin
-    bins[i] = tmp
-      for j in range(n):
-        if A[j] <= max_val:
-          counter = counter + 1 
-        else:
-          num_per_bin[i] = counter
-          counter = 0
-          tmp = tmp + size_bin
-          I = I + counter
-  noralize = I
+  i = 1
+  bins[i] = max_val
+  for j in range(n):
+    if A[j] <= max_val:
+      counter = counter + 1 
+    else:
+      num_per_bin[i] = counter
+      counter = 0
+      max_val = max_val + size_bin
+      I = I + counter*size_bin
+      if i < N-1:
+        i = i + 1
+      else:
+        num_per_bin= num_per_bin 
   plt.plot(bins,num_per_bin)
   plt.show()
   return I  

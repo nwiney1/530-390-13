@@ -56,48 +56,48 @@ def rgb_to_gray_lum(image):
   return tmp
 
 # scale (linear interpolation)
-def scale(image, s):
-  tmp = np.array(image)
-  [Nx, Ny, C] = tmp.shape
-  sNx = round(s * Nx)
-  sNy = round(s * Ny)
-  scaled = np.empty([sNx,sNy,3])
-  ddx = 1 / Nx
-  ddy = 1 / Ny
-  for si in range(sNx):
-    for sj in range(sNy):
-      x = si / sNx
-      y = sj / sNy
-      i = round(x * Nx)
-      j = round(y * Ny)
-      if i == 0:
-        dRdx = (tmp[i+1,j,0] - tmp[i,j,0]) * ddx
-        dGdx = (tmp[i+1,j,1] - tmp[i,j,1]) * ddx
-        dBdx = (tmp[i+1,j,2] - tmp[i,j,2]) * ddx
-      elif i == Nx-1:
-        dRdx = (tmp[i,j,0] - tmp[i-1,j,0]) * ddx
-        dGdx = (tmp[i,j,1] - tmp[i-1,j,1]) * ddx
-        dBdx = (tmp[i,j,2] - tmp[i-1,j,2]) * ddx
-       else:
-         dRdx = 0.5 * (tmp[i+1,j,0] - tmp[i-1,j,0]) * ddx
-         dGdx = 0.5 * (tmp[i+1,j,1] - tmp[i-1,j,1]) * ddx
-         dBdx = 0.5 * (tmp[i+1,j,2] - tmp[i-1,j,2]) * ddx
-       if j == 0:
-         dRdy = (tmp[i,j+1,0] - tmp[i,j,0]) * ddy
-         dGdy = (tmp[i,j+1,1] - tmp[i,j,1]) * ddy
-         dBdy = (tmp[i,j+1,2] - tmp[i,j,2]) * ddy
-       elif j == Ny-1:
-         dRdy = (tmp[i,j,0] - tmp[i,j-1,0]) * ddy
-         dGdy = (tmp[i,j,1] - tmp[i,j-1,1]) * ddy
-         dBdy = (tmp[i,j,2] - tmp[i,j-1,2]) * ddy
-       else:
-         dRdy = 0.5 * (tmp[i,j+1,0] - tmp[i,j-1,0]) * ddy
-         dGdy = 0.5 * (tmp[i,j+1,1] - tmp[i,j-1,1]) * ddy
-         dBdy = 0.5 * (tmp[i,j+1,2] - tmp[i,j-1,2]) * ddy
-       scaled[si,sj,0] = tmp[i,j,0] + dRdx * (x - i*ddx) + dRdy * (y - j*ddy)
-       scaled[si,sj,1] = tmp[i,j,1] + dGdx * (x - i*ddx) + dGdy * (y - j*ddy)
-       scaled[si,sj,2] = tmp[i,j,2] + dBdx * (x - i*ddx) + dBdy * (y - j*ddy)
-  return scaled
+#def scale(image, s):
+#  tmp = np.array(image)
+#  [Nx, Ny, C] = tmp.shape
+#  sNx = round(s * Nx)
+#  sNy = round(s * Ny)
+#  scaled = np.empty([sNx,sNy,3])
+#  ddx = 1 / Nx
+#  ddy = 1 / Ny
+#  for si in range(sNx):
+#    for sj in range(sNy):
+#      x = si / sNx
+#      y = sj / sNy
+#      i = round(x * Nx)
+#      j = round(y * Ny)
+#      if i == 0:
+#        dRdx = (tmp[i+1,j,0] - tmp[i,j,0]) * ddx
+#        dGdx = (tmp[i+1,j,1] - tmp[i,j,1]) * ddx
+#        dBdx = (tmp[i+1,j,2] - tmp[i,j,2]) * ddx
+#      elif i == Nx-1:
+#        dRdx = (tmp[i,j,0] - tmp[i-1,j,0]) * ddx
+#        dGdx = (tmp[i,j,1] - tmp[i-1,j,1]) * ddx
+#        dBdx = (tmp[i,j,2] - tmp[i-1,j,2]) * ddx
+#      else:
+#         dRdx = 0.5 * (tmp[i+1,j,0] - tmp[i-1,j,0]) * ddx
+#         dGdx = 0.5 * (tmp[i+1,j,1] - tmp[i-1,j,1]) * ddx
+##         dBdx = 0.5 * (tmp[i+1,j,2] - tmp[i-1,j,2]) * ddx
+#      if j == 0:
+#         dRdy = (tmp[i,j+1,0] - tmp[i,j,0]) * ddy
+#         dGdy = (tmp[i,j+1,1] - tmp[i,j,1]) * ddy
+#         dBdy = (tmp[i,j+1,2] - tmp[i,j,2]) * ddy
+#      elif j == Ny-1:
+#         dRdy = (tmp[i,j,0] - tmp[i,j-1,0]) * ddy
+#         dGdy = (tmp[i,j,1] - tmp[i,j-1,1]) * ddy
+#         dBdy = (tmp[i,j,2] - tmp[i,j-1,2]) * ddy
+#      else:
+#         dRdy = 0.5 * (tmp[i,j+1,0] - tmp[i,j-1,0]) * ddy
+#         dGdy = 0.5 * (tmp[i,j+1,1] - tmp[i,j-1,1]) * ddy
+#         dBdy = 0.5 * (tmp[i,j+1,2] - tmp[i,j-1,2]) * ddy
+#       scaled[si,sj,0] = tmp[i,j,0] + dRdx * (x - i*ddx) + dRdy * (y - j*ddy)
+#       scaled[si,sj,1] = tmp[i,j,1] + dGdx * (x - i*ddx) + dGdy * (y - j*ddy)
+#       scaled[si,sj,2] = tmp[i,j,2] + dBdx * (x - i*ddx) + dBdy * (y - j*ddy)
+#  return scaled
 
 # difference
 def difference(image1, image2):
